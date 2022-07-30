@@ -1,10 +1,10 @@
 import React from "react";
-import logo from "./logo.svg";
-import "./App.css";
-import Button from "@mui/material/Button";
+import { Admin } from "react-admin";
+import jsonServerProvider from "ra-data-json-server";
 
+const dataProvider = jsonServerProvider("https://jsonplaceholder.typicode.com");
 function App() {
-  return <Button variant="contained">Hello World</Button>;
+  return <Admin dataProvider={dataProvider} />;
 }
 
 export default App;
