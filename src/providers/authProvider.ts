@@ -1,10 +1,8 @@
 const authProvider = {
   // called when the user attempts to log in
-  login: (props: any) => {
-    // { username }: { username: string }
-    console.log(`🚀 - file: authProvider.ts - line 4 - props`, props);
+  login: ({ username, password }: { username: string; password: string }) => {
     localStorage.setItem("username", "username");
-    // accept all username/password combinations
+
     return Promise.resolve();
   },
   // called when the user clicks on the logout button
