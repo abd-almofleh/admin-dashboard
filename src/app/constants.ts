@@ -1,9 +1,9 @@
 const errorCodes = {
-  loginFailed: 403,
+  loginFailed: 401,
 };
 
-const endPoints = {
-  refreshToken: "/refresh",
-};
+const endPoints: {
+  refreshToken?: string;
+} = {};
 
 export { errorCodes, endPoints };

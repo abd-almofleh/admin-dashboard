@@ -17,6 +17,7 @@ const baseQuery = fetchBaseQuery({
 
 /**
  * If the result of the baseQuery is a loginFailed error, then refresh the token and try again.
+ * use when the refresh token is implemented in the server
  * @param {string | FetchArgs} args - string | FetchArgs
  * @param {BaseQueryApi} api - BaseQueryApi
  * @param {object} extraOptions - {
@@ -28,7 +29,7 @@ const baseQuery = fetchBaseQuery({
 const baseQueryWithReauth = async (args: string | FetchArgs, api: BaseQueryApi, extraOptions: object) => {
   let result = await baseQuery(args, api, extraOptions);
   if (result?.error?.status === errorCodes.loginFailed) {
-    const refreshResult = await baseQuery(endPoints.refreshToken, api, extraOptions);
+    const refreshResult = await baseQuery(endPoints?.refreshToken ?? "/refresh", api, extraOptions);
     if (refreshResult?.data) {
       const state = api.getState() as any;
       const user = state.auth.user;
@@ -42,6 +43,6 @@ const baseQueryWithReauth = async (args: string | FetchArgs, api: BaseQueryApi, 
 };
 
 export const apiSlice = createApi({
-  baseQuery: baseQueryWithReauth,
+  baseQuery: baseQuery,
   endpoints: (builder) => ({}),
 });
