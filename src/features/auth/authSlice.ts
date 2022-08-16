@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { loadUserState } from "../../app/localStorage";
 import type { RootState } from "../../app/store";
 import { IUser, Nilable } from "../../app/types";
@@ -15,8 +15,8 @@ const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    login: (state, action): void => {
-      const { user } = action.payload;
+    login: (state, action: PayloadAction<IUser>): void => {
+      const { payload: user } = action;
       state.user = user;
       localStorage.setItem("user", JSON.stringify(user));
     },
