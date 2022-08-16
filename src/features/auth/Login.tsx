@@ -1,8 +1,8 @@
 import React, { useRef, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import { login as loginAction } from "./authSlice";
 import { useLoginMutation } from "./authApiSlice";
+import { useAppDispatch } from "../../app/hooks";
 
 const Login = () => {
   const userRef = useRef<HTMLInputElement>(null);
@@ -13,7 +13,7 @@ const Login = () => {
   const navigate = useNavigate();
 
   const [login, { isLoading }] = useLoginMutation();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     userRef.current?.focus();
@@ -27,7 +27,7 @@ const Login = () => {
     e.preventDefault();
     try {
       const userData = await login({ email: user, password: pwd }).unwrap();
-      console.table(`🚀 - file: Login.tsx - line 30 - userDate`, userData.data);
+      console.log(`🚀 - file: Login.tsx - line 30 - userDate`, userData.data);
       dispatch(loginAction({ ...userData.data }));
       setUser("");
       setPwd("");
