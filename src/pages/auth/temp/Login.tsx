@@ -1,7 +1,7 @@
 import { Grid, Stack, Typography } from "@mui/material";
 
-import AuthWrapper from "./AuthWrapper";
-import AuthLogin from "./login/LoginForm";
+import AuthWrapper from "../AuthWrapper";
+import AuthLogin from "./LoginForm";
 
 const Login = () => (
   <AuthWrapper>
