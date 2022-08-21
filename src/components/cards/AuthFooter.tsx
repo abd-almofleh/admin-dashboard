@@ -4,7 +4,7 @@ import config from "config";
 const AuthFooter = () => {
   return (
     <Container maxWidth="xl">
-      <Grid direction="row" justifyContent="center" textAlign="center">
+      <Grid justifyContent="center" textAlign="center">
         <Typography variant="subtitle2" color="secondary" component="span">
           &copy; {config.appName} by &nbsp;
           <Typography
