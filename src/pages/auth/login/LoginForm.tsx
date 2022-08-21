@@ -14,7 +14,7 @@ import {
 } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 
-import { Formik } from "formik";
+import { Formik, FormikHelpers } from "formik";
 import * as Yup from "yup";
 
 import AnimateButton from "components/@extended/AnimateButton";
@@ -31,7 +31,7 @@ const AuthLogin = () => {
     setShowPassword(!showPassword);
   };
 
-  const handleMouseDownPassword = (event: any) => {
+  const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
   };
 
@@ -46,10 +46,10 @@ const AuthLogin = () => {
     password: Yup.string().max(255).required("Password is required"),
   });
 
-  // TODO: add types
-  const onSubmit: any = async (values: LoginFormDataTypes, { setErrors, setStatus, setSubmitting }: any) => {
-    console.log(`🚀 - file: LoginForm.tsx - line 51 - setSubmitting`, setSubmitting);
-    console.log(`🚀 - file: LoginForm.tsx - line 47 - values`, values);
+  const onSubmit: any = async (
+    values: LoginFormDataTypes,
+    { setSubmitting, ...rest }: FormikHelpers<LoginFormDataTypes>
+  ) => {
     await new Promise((resolve) => setTimeout(resolve, 3000));
   };
   return (
