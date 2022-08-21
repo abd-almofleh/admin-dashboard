@@ -1,5 +1,6 @@
 import { useState } from "react";
 import {
+  Alert,
   Button,
   Checkbox,
   FormControlLabel,
@@ -18,14 +19,24 @@ import { Formik, FormikHelpers } from "formik";
 import * as Yup from "yup";
 
 import AnimateButton from "components/@extended/AnimateButton";
+import { IUser, Nilable } from "app/types";
+import { useNavigate } from "react-router-dom";
+import { useLoginMutation } from "../authApiSlice";
+import { useAppDispatch } from "app/hooks";
+import { login as loginAction } from "../authSlice";
 
 interface LoginFormDataTypes {
   email: string;
   password: string;
   keepSignIn: boolean;
+  general: Nilable<string>;
 }
 
 const AuthLogin = () => {
+  const navigate = useNavigate();
+  const [login, { isLoading, isSuccess }] = useLoginMutation();
+  const dispatch = useAppDispatch();
+
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
@@ -39,6 +50,7 @@ const AuthLogin = () => {
     email: "",
     password: "",
     keepSignIn: false,
+    general: null,
   };
 
   const validationSchema = Yup.object().shape({
@@ -50,14 +62,35 @@ const AuthLogin = () => {
     values: LoginFormDataTypes,
     { setSubmitting, ...rest }: FormikHelpers<LoginFormDataTypes>
   ) => {
-    await new Promise((resolve) => setTimeout(resolve, 3000));
+    try {
+      const userInfo: IUser = await login({ email: values.email, password: values.password }).unwrap();
+      dispatch(loginAction(userInfo));
+      navigate("/dashboard");
+    } catch (err: any) {
+      console.log(`🚀 - file: Login.tsx - line 37 - err`, err);
+      if (!err?.status) {
+        rest.setErrors({ general: "No server response" });
+      } else if (err.status === 401) {
+        rest.setErrors({ general: "Your email or password is wrong!" });
+      } else {
+        rest.setErrors({ general: "Server Error, Please try again later" });
+      }
+    }
   };
   return (
     <>
       <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
         {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
           <form noValidate onSubmit={handleSubmit}>
-            <Grid container spacing={3}>
+            <Grid container spacing={2}>
+              {errors.general && (
+                <Grid item xs={12}>
+                  <Alert variant="filled" severity="error">
+                    {errors.general}
+                  </Alert>
+                </Grid>
+              )}
+
               {/*  email */}
               <Grid item xs={12}>
                 <Stack spacing={1}>
