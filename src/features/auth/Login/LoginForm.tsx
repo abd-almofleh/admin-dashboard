@@ -154,9 +154,10 @@ const LoginForm = () => {
                     )}
                   </Stack>
                 </Grid>
-
+                {/* TODO: fix keep me sign in */}
                 <Grid item xs={12} sx={{ mt: -1 }}>
                   <FormControlLabel
+                    disabled
                     control={
                       <Checkbox
                         checked={values.keepSignIn}
@@ -166,7 +167,11 @@ const LoginForm = () => {
                         size="small"
                       />
                     }
-                    label={<Typography variant="h6">Keep me sign in</Typography>}
+                    label={
+                      <Typography variant="h6">
+                        Keep me sign in <span style={{ color: "red" }}>(not working)</span>
+                      </Typography>
+                    }
                   />
                 </Grid>
 
