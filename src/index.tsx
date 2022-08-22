@@ -7,7 +7,7 @@ import { Provider as ReduxProvider } from "react-redux";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
-root.render(
+const index = (
   <React.StrictMode>
     <ReduxProvider store={store}>
       <BrowserRouter>
@@ -18,3 +18,4 @@ root.render(
     </ReduxProvider>
   </React.StrictMode>
 );
+root.render(index);
