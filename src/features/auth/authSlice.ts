@@ -31,5 +31,6 @@ export const { login, logOut } = authSlice.actions;
 
 export const selectCurrentUser = (state: RootState): Nilable<IUser> => state.auth.user;
 export const selectCurrentToken = (state: RootState): Nilable<string> => state.auth.user?.access_token;
+export const selectRoles = (state: RootState): Nilable<string[]> => state.auth.user?.roles;
 
 export default authSlice.reducer;
