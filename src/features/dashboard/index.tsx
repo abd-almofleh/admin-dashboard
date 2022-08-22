@@ -1,10 +1,10 @@
-import { selectCurrentUser, selectCurrentToken, logOut } from "./authSlice";
+import { selectCurrentUser, selectCurrentToken, logOut } from "features/auth/authSlice";
 import { Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { useLogoutMutation } from "./authApiSlice";
+import { useLogoutMutation } from "features/auth/authApiSlice";
 import { IUser, Nilable } from "../../app/types";
 
-const Welcome = () => {
+const Dashboard = () => {
   const user: Nilable<IUser> = useAppSelector(selectCurrentUser);
   const token: Nilable<string> = useAppSelector(selectCurrentToken);
   const dispatch = useAppDispatch();
@@ -21,16 +21,14 @@ const Welcome = () => {
   };
   const content = (
     <section>
-      <h1>{welcome}</h1>
+      <h1>Dashboard</h1>
+      <h2>{welcome}</h2>
       <p>{tokenAbbr}</p>
       <button onClick={handleLogout}> LogOut</button>
-      <p>
-        <Link to="/userslist">user list</Link>
-      </p>
     </section>
   );
 
   return content;
 };
 
-export default Welcome;
+export default Dashboard;

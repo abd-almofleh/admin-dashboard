@@ -1,9 +1,11 @@
-const errorCodes = {
+export const errorCodes = {
   loginFailed: 401,
 };
 
-const endPoints: {
+export const endPoints: {
   refreshToken?: string;
 } = {};
 
-export { errorCodes, endPoints };
+export const Roles = {
+  superAdmin: "super_admin",
+};

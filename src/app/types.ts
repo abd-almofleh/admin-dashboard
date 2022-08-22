@@ -1,3 +1,5 @@
+import { Location } from "react-router-dom";
+
 export type Nullable<T> = T | null;
 export type Undefinable<T> = T | undefined;
 export type Nilable<T> = Nullable<Undefinable<T>>;
@@ -12,9 +14,13 @@ export interface IUser {
   updated_at: string;
   deleted_at: Nilable<string>;
   access_token: string;
+  roles: string[];
 }
 
 export interface GenericResponse {
   message: string;
   data?: object;
+}
+export interface ILocationState {
+  from: Location;
 }
