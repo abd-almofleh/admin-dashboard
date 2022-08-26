@@ -4,7 +4,6 @@ import RequireAuth from "features/auth/RequireAuth";
 import Login from "features/auth/Login";
 import { Roles } from "app/constants";
 import Dashboard from "features/dashboard";
-import MinimalLayout from "layout/MinimalLayout";
 import PageNotFound from "features/errors/PageNotFound";
 import MainLayout from "layout/MainLayout";
 

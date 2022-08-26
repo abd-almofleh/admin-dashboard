@@ -34,7 +34,7 @@ TabPanel.propTypes = {
 interface IPopperTabsProps {
   handleSelectedTabChange?: (event: React.SyntheticEvent<Element, Event>, value: any) => void;
   selectedTab: number;
-  handleLogout: (event: any) => void;
+  handleLogout: React.MouseEventHandler<HTMLButtonElement>;
 }
 
 const PopperTabs = ({ handleSelectedTabChange, selectedTab, handleLogout, ...props }: IPopperTabsProps) => {

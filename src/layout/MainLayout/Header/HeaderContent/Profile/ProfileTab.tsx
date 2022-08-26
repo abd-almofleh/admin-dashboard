@@ -1,11 +1,11 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
 import { useTheme } from "@mui/material/styles";
-import { List, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
+import { ButtonBase, List, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
 import { EditOutlined, ProfileOutlined, LogoutOutlined, UserOutlined, WalletOutlined } from "@ant-design/icons";
 
 interface ProfileTabProps {
-  handleLogout: (event: any) => void;
+  handleLogout?: React.MouseEventHandler<HTMLDivElement | HTMLButtonElement>;
 }
 
 const ProfileTab = ({ handleLogout }: ProfileTabProps) => {

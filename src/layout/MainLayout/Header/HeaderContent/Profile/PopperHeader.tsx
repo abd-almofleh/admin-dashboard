@@ -5,7 +5,7 @@ interface IPopperHeaderProps {
   user_image: string;
   userFullName: string;
   userRole: string;
-  handleLogout: () => void;
+  handleLogout: React.MouseEventHandler<HTMLButtonElement>;
 }
 const PopperHeader = ({ user_image, handleLogout, userFullName, userRole, ...props }: IPopperHeaderProps) => {
   return (
