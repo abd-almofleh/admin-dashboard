@@ -18,8 +18,8 @@ const AppRoutes = () => {
       </Route>
 
       {/* Main Routes */}
-      <Route element={<MainLayout />}>
-        <Route element={<RequireAuth allowedRoles={[Roles.superAdmin]} />}>
+      <Route element={<RequireAuth allowedRoles={[Roles.superAdmin]} />}>
+        <Route element={<MainLayout />}>
           <Route path="dashboard" element={<Dashboard />} />
         </Route>
 
