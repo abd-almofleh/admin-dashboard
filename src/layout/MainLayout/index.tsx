@@ -2,9 +2,8 @@ import { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "app/hooks";
 
-// material-ui
 import { useTheme } from "@mui/material/styles";
-import { Box, Toolbar, useMediaQuery } from "@mui/material";
+import { Box, Grid, Toolbar, useMediaQuery } from "@mui/material";
 import { SelectSideBarStatus, openSideBar } from "./SideBar/SideBarSlice";
 
 import SideBar from "./SideBar";
@@ -12,6 +11,7 @@ import Header from "./Header";
 import navigation from "menu-items";
 import Breadcrumbs from "components/@extended/Breadcrumbs";
 import { RightOutlined } from "@ant-design/icons";
+import Footer from "./Footer";
 
 const MainLayout = () => {
   const theme = useTheme();
@@ -46,15 +46,18 @@ const MainLayout = () => {
       <SideBar open={open} handleSideBarToggle={handleSideBarToggle} />
       <Box component="main" sx={{ width: "100%", flexGrow: 1, p: { xs: 2, sm: 3 } }}>
         <Toolbar />
-        <Breadcrumbs
-          navigation={navigation}
-          title
-          titleBottom
-          card={false}
-          separator={<RightOutlined />}
-          divider={false}
-        />
-        <Outlet />
+        <Grid container sx={{ minHeight: "calc(-110px + 100vh)" }}>
+          <Breadcrumbs
+            navigation={navigation}
+            title
+            titleBottom
+            card={false}
+            separator={<RightOutlined />}
+            divider={false}
+          />
+          <Outlet />
+          <Footer />
+        </Grid>
       </Box>
     </Box>
   );
