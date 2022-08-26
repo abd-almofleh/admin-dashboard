@@ -2,12 +2,13 @@ import { useRef, useState } from "react";
 import { Theme } from "@mui/material/styles";
 import { Avatar, Box, ButtonBase, Stack, Typography, useMediaQuery } from "@mui/material";
 
-import { useAuth } from "app/hooks";
-import { getFullName } from "utils/Helpers";
-import { IUser } from "app/types";
 import ProfilePopper from "./ProfilePopper";
 import PopperHeader from "./PopperHeader";
 import PopperTabs from "./PopperTabs";
+
+import { useAuth } from "app/hooks";
+import { getFullName } from "utils/Helpers";
+import { IUser } from "app/types";
 
 const Profile = () => {
   const matchesXs = useMediaQuery<Theme>((theme) => theme.breakpoints.down("md"));
@@ -35,8 +36,8 @@ const Profile = () => {
 
   const [selectedTab, setSelectedTab] = useState<number>(0);
 
-  const handleChange = (event: any, newValue: number) => {
-    setSelectedTab(newValue);
+  const handleSelectedTabChange = (event: any, newSelectedTab: number) => {
+    setSelectedTab(newSelectedTab);
   };
 
   const iconBackColorOpen = "grey.300";
@@ -68,7 +69,11 @@ const Profile = () => {
           handleLogout={handleLogout}
           userRole={user.roles?.[0]}
         />
-        <PopperTabs handleChange={handleChange} handleLogout={handleLogout} selectedTab={selectedTab} />
+        <PopperTabs
+          handleSelectedTabChange={handleSelectedTabChange}
+          handleLogout={handleLogout}
+          selectedTab={selectedTab}
+        />
       </ProfilePopper>
     </Box>
   );

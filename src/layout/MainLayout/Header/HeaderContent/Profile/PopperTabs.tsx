@@ -32,12 +32,12 @@ TabPanel.propTypes = {
 };
 
 interface IPopperTabsProps {
-  handleChange?: (event: React.SyntheticEvent<Element, Event>, value: any) => void;
+  handleSelectedTabChange?: (event: React.SyntheticEvent<Element, Event>, value: any) => void;
   selectedTab: number;
   handleLogout: (event: any) => void;
 }
 
-const PopperTabs = ({ handleChange, selectedTab, handleLogout, ...props }: IPopperTabsProps) => {
+const PopperTabs = ({ handleSelectedTabChange, selectedTab, handleLogout, ...props }: IPopperTabsProps) => {
   function a11yProps(index: number) {
     return {
       id: `profile-tab-${index}`,
@@ -48,7 +48,7 @@ const PopperTabs = ({ handleChange, selectedTab, handleLogout, ...props }: IPopp
   return (
     <>
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-        <Tabs variant="fullWidth" value={selectedTab} onChange={handleChange} aria-label="profile tabs">
+        <Tabs variant="fullWidth" value={selectedTab} onChange={handleSelectedTabChange} aria-label="profile tabs">
           <Tab
             sx={{
               display: "flex",

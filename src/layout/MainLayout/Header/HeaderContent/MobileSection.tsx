@@ -4,7 +4,6 @@ import { useTheme } from "@mui/material/styles";
 import { AppBar, Box, ClickAwayListener, IconButton, Paper, Popper, Toolbar } from "@mui/material";
 
 import Search from "./Search";
-import Profile from "./Profile";
 import Transitions from "components/@extended/Transitions";
 
 import { MoreOutlined } from "@ant-design/icons";
