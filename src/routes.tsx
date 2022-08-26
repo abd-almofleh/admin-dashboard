@@ -6,6 +6,7 @@ import { Roles } from "app/constants";
 import Dashboard from "features/dashboard";
 import MinimalLayout from "layout/MinimalLayout";
 import PageNotFound from "features/errors/PageNotFound";
+import MainLayout from "layout/MainLayout";
 
 const AppRoutes = () => {
   return (
@@ -17,12 +18,12 @@ const AppRoutes = () => {
       </Route>
 
       {/* Main Routes */}
-      <Route element={<RequireAuth allowedRoles={[Roles.superAdmin]} />}>
-        <Route path="dashboard" element={<Dashboard />} />
-      </Route>
+      <Route element={<MainLayout />}>
+        <Route element={<RequireAuth allowedRoles={[Roles.superAdmin]} />}>
+          <Route path="dashboard" element={<Dashboard />} />
+        </Route>
 
-      {/* Errors Route */}
-      <Route element={<MinimalLayout />}>
+        {/* Errors Route */}
         <Route path="*" element={<PageNotFound />} />
       </Route>
     </Routes>

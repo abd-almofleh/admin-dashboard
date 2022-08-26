@@ -1,5 +1,3 @@
-// ==============================|| THEME CONFIG  ||============================== //
-
 const config = {
   appName: "Almofleh Corp",
   defaultPath: "/dashboard",
@@ -13,7 +11,8 @@ const config = {
 };
 
 export default config;
-export const drawerWidth = 260;
+export const sideBarWidth = 260;
+export const miniSideBarWidth = 60;
 
 export const twitterColor = "#1DA1F2";
 export const facebookColor = "#3b5998";
