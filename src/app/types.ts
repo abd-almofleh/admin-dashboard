@@ -15,6 +15,7 @@ export interface IUser {
   deleted_at: Nilable<string>;
   access_token: string;
   roles: string[];
+  profile_image: string;
 }
 
 export interface GenericResponse {
