@@ -1,44 +1,44 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "app/store";
 
-interface SideMenuData {
+interface ISideBarData {
   openItem: string[];
   openComponent: string;
-  sideMenuOpen: boolean;
-  componentSideMenuOpen: boolean;
+  sideBarOpen: boolean;
+  componentSideBarOpen: boolean;
 }
 
-const initialState: SideMenuData = {
+const initialState: ISideBarData = {
   openItem: ["dashboard"],
   openComponent: "buttons",
-  sideMenuOpen: false,
-  componentSideMenuOpen: true,
+  sideBarOpen: false,
+  componentSideBarOpen: true,
 };
 
-const menu = createSlice({
-  name: "sideMenu",
+const SideBar = createSlice({
+  name: "sideBar",
   initialState,
   reducers: {
-    activeItem(state, action: PayloadAction<SideMenuData["openItem"]>) {
+    activeItem(state, action: PayloadAction<ISideBarData["openItem"]>) {
       state.openItem = action.payload;
     },
 
-    activeComponent(state, action: PayloadAction<SideMenuData["openComponent"]>) {
+    activeComponent(state, action: PayloadAction<ISideBarData["openComponent"]>) {
       state.openComponent = action.payload;
     },
 
-    openSideMenu(state, action: PayloadAction<boolean>) {
-      state.sideMenuOpen = action.payload;
+    openSideBar(state, action: PayloadAction<boolean>) {
+      state.sideBarOpen = action.payload;
     },
 
-    openComponentSideMenu(state, action: PayloadAction<any>) {
-      state.componentSideMenuOpen = action.payload.componentSideMenuOpen;
+    openComponentSideBar(state, action: PayloadAction<any>) {
+      state.componentSideBarOpen = action.payload.componentSideBarOpen;
     },
   },
 });
-export const SelectSideMenuStatus = (state: RootState): boolean => state.sideMenu.sideMenuOpen;
-export const SelectSideMenu = (state: RootState): SideMenuData => state.sideMenu;
+export const SelectSideBarStatus = (state: RootState): boolean => state.sideBar.sideBarOpen;
+export const SelectSideBar = (state: RootState): ISideBarData => state.sideBar;
 
-export const { activeItem, activeComponent, openSideMenu, openComponentSideMenu } = menu.actions;
+export const { activeItem, activeComponent, openSideBar, openComponentSideBar } = SideBar.actions;
 
-export default menu.reducer;
+export default SideBar.reducer;

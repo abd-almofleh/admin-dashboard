@@ -8,10 +8,10 @@ import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
 
 interface HeaderProps {
   open: boolean;
-  handleDrawerToggle: (event: any) => void;
+  handleSideBarToggle: (event: any) => void;
 }
 
-const Header = ({ open, handleDrawerToggle }: HeaderProps) => {
+const Header = ({ open, handleSideBarToggle }: HeaderProps) => {
   const theme = useTheme();
   const matchDownMD = useMediaQuery(theme.breakpoints.down("lg"));
 
@@ -22,8 +22,8 @@ const Header = ({ open, handleDrawerToggle }: HeaderProps) => {
     <Toolbar>
       <IconButton
         disableRipple
-        aria-label="open sideMenu"
-        onClick={handleDrawerToggle}
+        aria-label="open sideBar"
+        onClick={handleSideBarToggle}
         edge="start"
         color="secondary"
         sx={{ color: "text.primary", bgcolor: open ? iconBackColorOpen : iconBackColor, ml: { xs: 0, lg: -2 } }}
@@ -59,7 +59,7 @@ const Header = ({ open, handleDrawerToggle }: HeaderProps) => {
 
 Header.propTypes = {
   open: PropTypes.bool,
-  handleDrawerToggle: PropTypes.func,
+  handleSideBarToggle: PropTypes.func,
 };
 
 export default Header;

@@ -4,42 +4,42 @@ import React, { useMemo } from "react";
 import { Theme, useTheme } from "@mui/material/styles";
 import { Box, Drawer, useMediaQuery } from "@mui/material";
 
-import DrawerHeader from "./DrawerHeader";
-import DrawerContent from "./DrawerContent";
-import MiniDrawerStyled from "./MiniDrawerStyled";
+import SideBarHeader from "./SideBarHeader";
+import SideBarContent from "./SideBarContent";
+import MiniSideBarStyled from "./MiniSideBarStyled";
 import { sideBarWidth } from "config";
 import { Undefinable } from "app/types";
 
-interface MainDrawerProps {
+interface MainSideBarProps {
   open: boolean;
-  handleDrawerToggle: Undefinable<(event: {}, reason: "backdropClick" | "escapeKeyDown") => void>;
+  handleSideBarToggle: Undefinable<(event: {}, reason: "backdropClick" | "escapeKeyDown") => void>;
   window?: any; //TODO: Fix
 }
 
-const MainDrawer: React.FC<MainDrawerProps> = ({ open, handleDrawerToggle, window }) => {
+const MainSideBar: React.FC<MainSideBarProps> = ({ open, handleSideBarToggle, window }) => {
   const theme = useTheme();
   const matchDownMD = useMediaQuery<Theme>(theme.breakpoints.down("lg"));
 
   const container = window !== undefined ? () => window().document.body : undefined;
 
-  const drawerHeader = useMemo(() => <DrawerHeader open={open} />, [open]);
-  const drawerContent = useMemo(() => <DrawerContent />, []);
+  const sideBarHeader = useMemo(() => <SideBarHeader open={open} />, [open]);
+  const sideBarContent = useMemo(() => <SideBarContent />, []);
 
   return (
     <Box component="nav" sx={{ flexShrink: { md: 0 }, zIndex: 1300 }} aria-label="mailbox folders">
       {!matchDownMD ? (
-        <MiniDrawerStyled variant="permanent" open={open}>
+        <MiniSideBarStyled variant="permanent" open={open}>
           <>
-            {drawerHeader}
-            {drawerContent}
+            {sideBarHeader}
+            {sideBarContent}
           </>
-        </MiniDrawerStyled>
+        </MiniSideBarStyled>
       ) : (
         <Drawer
           container={container}
           variant="temporary"
           open={open}
-          onClose={handleDrawerToggle}
+          onClose={handleSideBarToggle}
           ModalProps={{ keepMounted: true }}
           sx={{
             display: { xs: "block", lg: "none" },
@@ -53,9 +53,8 @@ const MainDrawer: React.FC<MainDrawerProps> = ({ open, handleDrawerToggle, windo
           }}
         >
           <>
-            {" "}
-            {open && drawerHeader}
-            {open && drawerContent}
+            {open && sideBarHeader}
+            {open && sideBarContent}
           </>
         </Drawer>
       )}
@@ -63,10 +62,10 @@ const MainDrawer: React.FC<MainDrawerProps> = ({ open, handleDrawerToggle, windo
   );
 };
 
-MainDrawer.propTypes = {
+MainSideBar.propTypes = {
   open: PropTypes.bool.isRequired,
-  handleDrawerToggle: PropTypes.func,
+  handleSideBarToggle: PropTypes.func,
   window: PropTypes.object,
 };
 
-export default MainDrawer;
+export default MainSideBar;

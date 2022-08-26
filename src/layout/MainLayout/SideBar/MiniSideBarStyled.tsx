@@ -20,7 +20,7 @@ const closedMixin = (theme: Theme) => ({
   }),
 });
 
-const MiniDrawerStyled = styled(Drawer, { shouldForwardProp: (prop) => prop !== "open" })<{ open: boolean }>(
+const MiniSideBarStyled = styled(Drawer, { shouldForwardProp: (prop) => prop !== "open" })<{ open: boolean }>(
   ({ theme, open }) => ({
     width: sideBarWidth,
     flexShrink: 0,
@@ -38,4 +38,4 @@ const MiniDrawerStyled = styled(Drawer, { shouldForwardProp: (prop) => prop !== 
   })
 );
 
-export default MiniDrawerStyled;
+export default MiniSideBarStyled;

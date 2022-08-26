@@ -4,30 +4,30 @@ import { Box, List, Typography } from "@mui/material";
 
 import NavItem from "./NavItem";
 import { useAppSelector } from "app/hooks";
-import { SelectSideMenuStatus } from "../../SideMenuSlice";
-import { ISideMenuItemsGroup } from "app/types";
+import { SelectSideBarStatus } from "../../SideBarSlice";
+import { ISideBarItemsGroup } from "app/types";
 
 interface NavGroupProps {
-  item: ISideMenuItemsGroup;
+  item: ISideBarItemsGroup;
 }
 
 const NavGroup: FC<NavGroupProps> = ({ item }) => {
-  const sideMenuOpen = useAppSelector(SelectSideMenuStatus);
+  const sideBarOpen = useAppSelector(SelectSideBarStatus);
 
   // TODO:fix Collapse
-  const navCollapse = item.children.map((menuItem) => {
-    switch (menuItem.type) {
+  const navCollapse = item.children.map((sideBarItem) => {
+    switch (sideBarItem.type) {
       case "collapse":
         return (
-          <Typography key={menuItem.id} variant="caption" color="error" sx={{ p: 2.5 }}>
+          <Typography key={sideBarItem.id} variant="caption" color="error" sx={{ p: 2.5 }}>
             collapse - only available in paid version
           </Typography>
         );
       case "item":
-        return <NavItem key={menuItem.id} item={menuItem} level={menuItem.level} />;
+        return <NavItem key={sideBarItem.id} item={sideBarItem} level={sideBarItem.level} />;
       default:
         return (
-          <Typography key={menuItem.id} variant="h6" color="error" align="center">
+          <Typography key={sideBarItem.id} variant="h6" color="error" align="center">
             Fix - Group Collapse or Items [NavGroup.tsx]
           </Typography>
         );
@@ -38,7 +38,7 @@ const NavGroup: FC<NavGroupProps> = ({ item }) => {
     <List
       subheader={
         item.title &&
-        sideMenuOpen && (
+        sideBarOpen && (
           <Box sx={{ pl: 3, mb: 1.5 }}>
             <Typography variant="subtitle2" color="textSecondary">
               {item.title}
@@ -47,7 +47,7 @@ const NavGroup: FC<NavGroupProps> = ({ item }) => {
           </Box>
         )
       }
-      sx={{ mb: sideMenuOpen ? 1.5 : 0, py: 0, zIndex: 0 }}
+      sx={{ mb: sideBarOpen ? 1.5 : 0, py: 0, zIndex: 0 }}
     >
       {navCollapse}
     </List>

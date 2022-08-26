@@ -25,7 +25,7 @@ export interface ILocationState {
   from: Location;
 }
 
-export interface ISideMenuItem {
+export interface ISideBarItem {
   id: string;
   title: string;
   type: "item" | "collapse";
@@ -44,9 +44,9 @@ export interface ISideMenuItem {
     avatar?: React.ReactElement<any, string | React.JSXElementConstructor<any>>;
   };
 }
-export interface ISideMenuItemsGroup {
+export interface ISideBarItemsGroup {
   id: string;
   title: string;
   type: "group";
-  children: (ISideMenuItem | ISideMenuItemsGroup)[];
+  children: (ISideBarItem | ISideBarItemsGroup)[];
 }

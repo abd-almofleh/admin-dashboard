@@ -1,7 +1,7 @@
 import Navigation from "./Navigation";
 import SimpleBar from "components/third-party/SimpleBar";
 
-const DrawerContent = () => (
+const SideBarContent = () => (
   <SimpleBar
     sx={{
       "& .simplebar-content": {
@@ -14,4 +14,4 @@ const DrawerContent = () => (
   </SimpleBar>
 );
 
-export default DrawerContent;
+export default SideBarContent;

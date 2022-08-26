@@ -6,7 +6,7 @@ import {
   FontSizeOutlined,
   LoadingOutlined,
 } from "@ant-design/icons";
-import { ISideMenuItemsGroup } from "app/types";
+import { ISideBarItemsGroup } from "app/types";
 
 const icons = {
   FontSizeOutlined,
@@ -17,7 +17,7 @@ const icons = {
   AppstoreAddOutlined,
 };
 
-const utilities: ISideMenuItemsGroup = {
+const utilities: ISideBarItemsGroup = {
   id: "utilities",
   title: "Utilities",
   type: "group",

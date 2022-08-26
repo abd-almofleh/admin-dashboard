@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from "app/hooks";
 // material-ui
 import { useTheme } from "@mui/material/styles";
 import { Box, Toolbar, useMediaQuery } from "@mui/material";
-import { SelectSideMenuStatus, openSideMenu } from "./SideBar/SideMenuSlice";
+import { SelectSideBarStatus, openSideBar } from "./SideBar/SideBarSlice";
 
 import SideBar from "./SideBar";
 import Header from "./Header";
@@ -18,32 +18,32 @@ const MainLayout = () => {
   const matchDownLG = useMediaQuery(theme.breakpoints.down("xl"));
   const dispatch = useAppDispatch();
 
-  const sideMenuOpen = useAppSelector(SelectSideMenuStatus);
+  const sideBarOpen = useAppSelector(SelectSideBarStatus);
 
-  const [open, setOpen] = useState(sideMenuOpen);
+  const [open, setOpen] = useState(sideBarOpen);
 
-  const handleDrawerToggle = () => {
+  const handleSideBarToggle = () => {
     setOpen(!open);
-    dispatch(openSideMenu(!open));
+    dispatch(openSideBar(!open));
   };
 
-  // set media wise responsive drawer
+  // set media wise responsive SideBar
   useEffect(() => {
     setOpen(!matchDownLG);
-    dispatch(openSideMenu(!matchDownLG));
+    dispatch(openSideBar(!matchDownLG));
 
     //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [matchDownLG]);
 
   useEffect(() => {
-    if (open !== sideMenuOpen) setOpen(sideMenuOpen);
+    if (open !== sideBarOpen) setOpen(sideBarOpen);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [sideMenuOpen]);
+  }, [sideBarOpen]);
 
   return (
     <Box sx={{ display: "flex", width: "100%" }}>
-      <Header open={open} handleDrawerToggle={handleDrawerToggle} />
-      <SideBar open={open} handleDrawerToggle={handleDrawerToggle} />
+      <Header open={open} handleSideBarToggle={handleSideBarToggle} />
+      <SideBar open={open} handleSideBarToggle={handleSideBarToggle} />
       <Box component="main" sx={{ width: "100%", flexGrow: 1, p: { xs: 2, sm: 3 } }}>
         <Toolbar />
         <Breadcrumbs

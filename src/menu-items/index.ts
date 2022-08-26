@@ -2,13 +2,13 @@ import pages from "./pages";
 import dashboard from "./dashboard";
 import utilities from "./utilities";
 import support from "./support";
-import { ISideMenuItemsGroup } from "app/types";
+import { ISideBarItemsGroup } from "app/types";
 
-export interface IMenuItems {
-  items: ISideMenuItemsGroup[];
+export interface ISideBarItems {
+  items: ISideBarItemsGroup[];
 }
-const menuItems: IMenuItems = {
+const sideBarItems: ISideBarItems = {
   items: [dashboard, pages, utilities, support],
 };
 
-export default menuItems;
+export default sideBarItems;

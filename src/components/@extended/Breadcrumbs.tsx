@@ -6,10 +6,10 @@ import MuiBreadcrumbs from "@mui/material/Breadcrumbs";
 import { Grid, Typography } from "@mui/material";
 
 import MainCard from "../MainCard";
-import { IMenuItems } from "menu-items";
+import { ISideBarItems } from "menu-items";
 
 interface IBreadcrumbsProps {
-  navigation: IMenuItems;
+  navigation: ISideBarItems;
   title: any;
   titleBottom?: true;
   card?: boolean;

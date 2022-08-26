@@ -1,12 +1,12 @@
 import { ChromeOutlined, QuestionOutlined } from "@ant-design/icons";
-import { ISideMenuItemsGroup } from "app/types";
+import { ISideBarItemsGroup } from "app/types";
 
 const icons = {
   ChromeOutlined,
   QuestionOutlined,
 };
 
-const support: ISideMenuItemsGroup = {
+const support: ISideBarItemsGroup = {
   id: "support",
   title: "Support",
   type: "group",

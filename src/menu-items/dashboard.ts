@@ -1,11 +1,11 @@
 import { DashboardOutlined } from "@ant-design/icons";
-import { ISideMenuItemsGroup } from "app/types";
+import { ISideBarItemsGroup } from "app/types";
 
 const icons = {
   DashboardOutlined,
 };
 
-const dashboard: ISideMenuItemsGroup = {
+const dashboard: ISideBarItemsGroup = {
   id: "group-dashboard",
   title: "Navigation",
   type: "group",

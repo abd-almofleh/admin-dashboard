@@ -5,11 +5,11 @@ import { useAppDispatch, useAppSelector } from "app/hooks";
 
 import { useTheme } from "@mui/material/styles";
 import { Avatar, Chip, ListItemButton, ListItemIcon, ListItemText, Typography } from "@mui/material";
-import { SelectSideMenu, activeItem } from "../../SideMenuSlice";
-import { ISideMenuItem } from "app/types";
+import { SelectSideBar, activeItem } from "../../SideBarSlice";
+import { ISideBarItem } from "app/types";
 
 interface NavItemProps {
-  item: ISideMenuItem;
+  item: ISideBarItem;
   level?: number;
 }
 interface listItemPropsTypes {
@@ -21,8 +21,8 @@ interface listItemPropsTypes {
 const NavItem: FC<NavItemProps> = ({ item, level = 1 }) => {
   const theme = useTheme();
   const dispatch = useAppDispatch();
-  const sideMenu = useAppSelector(SelectSideMenu);
-  const { sideMenuOpen, openItem } = sideMenu;
+  const sideBar = useAppSelector(SelectSideBar);
+  const { sideBarOpen, openItem } = sideBar;
 
   let itemTarget = item.target ? "_blank" : "_self";
 
@@ -43,11 +43,11 @@ const NavItem: FC<NavItemProps> = ({ item, level = 1 }) => {
   };
 
   const Icon = item.icon;
-  const itemIcon = item.icon ? <Icon style={{ fontSize: sideMenuOpen ? "1rem" : "1.25rem" }} /> : false;
+  const itemIcon = item.icon ? <Icon style={{ fontSize: sideBarOpen ? "1rem" : "1.25rem" }} /> : false;
 
   const isSelected = openItem.findIndex((id) => id === item.id) > -1;
 
-  // active menu item on page load
+  // active SideBar item on page load
   useEffect(() => {
     const currentIndex = document.location.pathname
       .toString()
@@ -70,9 +70,9 @@ const NavItem: FC<NavItemProps> = ({ item, level = 1 }) => {
       selected={isSelected}
       sx={{
         zIndex: 1201,
-        pl: sideMenuOpen ? `${level * 28}px` : 1.5,
-        py: !sideMenuOpen && level === 1 ? 1.25 : 1,
-        ...(sideMenuOpen && {
+        pl: sideBarOpen ? `${level * 28}px` : 1.5,
+        py: !sideBarOpen && level === 1 ? 1.25 : 1,
+        ...(sideBarOpen && {
           "&:hover": {
             bgcolor: "primary.lighter",
           },
@@ -86,7 +86,7 @@ const NavItem: FC<NavItemProps> = ({ item, level = 1 }) => {
             },
           },
         }),
-        ...(!sideMenuOpen && {
+        ...(!sideBarOpen && {
           "&:hover": {
             bgcolor: "transparent",
           },
@@ -104,7 +104,7 @@ const NavItem: FC<NavItemProps> = ({ item, level = 1 }) => {
           sx={{
             minWidth: 28,
             color: isSelected ? iconSelectedColor : textColor,
-            ...(!sideMenuOpen && {
+            ...(!sideBarOpen && {
               borderRadius: 1.5,
               width: 36,
               height: 36,
@@ -114,7 +114,7 @@ const NavItem: FC<NavItemProps> = ({ item, level = 1 }) => {
                 bgcolor: "secondary.lighter",
               },
             }),
-            ...(!sideMenuOpen &&
+            ...(!sideBarOpen &&
               isSelected && {
                 bgcolor: "primary.lighter",
                 "&:hover": {
@@ -126,7 +126,7 @@ const NavItem: FC<NavItemProps> = ({ item, level = 1 }) => {
           {itemIcon}
         </ListItemIcon>
       )}
-      {(sideMenuOpen || (!sideMenuOpen && level !== 1)) && (
+      {(sideBarOpen || (!sideBarOpen && level !== 1)) && (
         <ListItemText
           primary={
             <Typography variant="h6" sx={{ color: isSelected ? iconSelectedColor : textColor }}>
@@ -135,7 +135,7 @@ const NavItem: FC<NavItemProps> = ({ item, level = 1 }) => {
           }
         />
       )}
-      {(sideMenuOpen || (!sideMenuOpen && level !== 1)) && item.chip && (
+      {(sideBarOpen || (!sideBarOpen && level !== 1)) && item.chip && (
         <Chip
           color={item.chip.color}
           variant={item.chip.variant}

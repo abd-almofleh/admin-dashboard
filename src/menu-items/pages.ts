@@ -1,12 +1,12 @@
 import { LoginOutlined, ProfileOutlined } from "@ant-design/icons";
-import { ISideMenuItemsGroup } from "app/types";
+import { ISideBarItemsGroup } from "app/types";
 
 const icons = {
   LoginOutlined,
   ProfileOutlined,
 };
 
-const pages: ISideMenuItemsGroup = {
+const pages: ISideBarItemsGroup = {
   id: "authentication",
   title: "Authentication",
   type: "group",
