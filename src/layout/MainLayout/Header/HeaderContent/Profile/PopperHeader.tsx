@@ -1,4 +1,4 @@
-import { Avatar, CardContent, Grid, IconButton, Stack, Typography } from "@mui/material";
+import { Avatar, CardContent, Grid, IconButton, Stack, Tooltip, Typography } from "@mui/material";
 import { LogoutOutlined } from "@ant-design/icons";
 
 interface IPopperHeaderProps {
@@ -23,9 +23,11 @@ const PopperHeader = ({ user_image, handleLogout, userFullName, userRole, ...pro
           </Stack>
         </Grid>
         <Grid item>
-          <IconButton size="large" color="secondary" onClick={handleLogout}>
-            <LogoutOutlined />
-          </IconButton>
+          <Tooltip title="Logout" arrow>
+            <IconButton size="large" color="secondary" onClick={handleLogout}>
+              <LogoutOutlined />
+            </IconButton>
+          </Tooltip>
         </Grid>
       </Grid>
     </CardContent>
