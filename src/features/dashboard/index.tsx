@@ -1,5 +1,4 @@
 import { selectCurrentUser, selectCurrentToken, logOut } from "features/auth/authSlice";
-import { Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { useLogoutMutation } from "features/auth/authApiSlice";
 import { IUser, Nilable } from "../../app/types";

@@ -5,15 +5,17 @@ import { ButtonBase } from "@mui/material";
 
 import Logo from "./Logo";
 import config from "../../config";
+import LogoWithoutText from "./LogoWithoutText";
 
 interface LogoSectionTypes {
   to?: string;
   sx?: SxProps<Theme>;
+  text?: boolean;
 }
 
-const LogoSection = ({ sx, to }: LogoSectionTypes) => (
+const LogoSection = ({ sx, to, text = true }: LogoSectionTypes) => (
   <ButtonBase disableRipple component={Link} to={!to ? config.defaultPath : to} sx={sx}>
-    <Logo />
+    {text ? <Logo /> : <LogoWithoutText />}
   </ButtonBase>
 );
 

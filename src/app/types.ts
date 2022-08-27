@@ -15,6 +15,7 @@ export interface IUser {
   deleted_at: Nilable<string>;
   access_token: string;
   roles: string[];
+  profile_image: string;
 }
 
 export interface GenericResponse {
@@ -23,4 +24,30 @@ export interface GenericResponse {
 }
 export interface ILocationState {
   from: Location;
+}
+
+export interface ISideBarItem {
+  id: string;
+  title: string;
+  type: "item" | "collapse";
+  url: string;
+  icon: any;
+  target?: boolean;
+  breadcrumbs?: boolean;
+  external?: boolean;
+  disabled?: boolean;
+  level?: number;
+  chip?: {
+    color?: "primary" | "secondary" | "error" | "info" | "success" | "warning" | "default";
+    variant?: "filled" | "outlined";
+    size?: "small" | "medium";
+    label?: React.ReactNode;
+    avatar?: React.ReactElement<any, string | React.JSXElementConstructor<any>>;
+  };
+}
+export interface ISideBarItemsGroup {
+  id: string;
+  title: string;
+  type: "group";
+  children: (ISideBarItem | ISideBarItemsGroup)[];
 }

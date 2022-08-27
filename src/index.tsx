@@ -1,11 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "./index.css";
-import App from "./App";
-import { store } from "./app/store";
 import { Provider as ReduxProvider } from "react-redux";
-
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+import { store } from "./app/store";
+import App from "./App";
+
+import "./index.css";
+import "simplebar/src/simplebar.css";
+
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 const index = (
   <React.StrictMode>
