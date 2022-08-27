@@ -5,7 +5,7 @@ const Footer = () => {
   const matchDownSM = useMediaQuery<Theme>((theme) => theme.breakpoints.down("sm"));
 
   return (
-    <Grid xs={12} sx={{ marginTop: "auto" }}>
+    <Grid item xs={12} sx={{ marginTop: "auto" }}>
       <Stack
         direction={matchDownSM ? "column" : "row"}
         justifyContent={matchDownSM ? "center" : "space-between"}

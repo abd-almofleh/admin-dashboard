@@ -3,8 +3,9 @@ import ReactDOM from "react-dom/client";
 import { Provider as ReduxProvider } from "react-redux";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import { store } from "./app/store";
+import { store } from "app/store";
 import App from "./App";
+import "app/localization";
 
 import "./index.css";
 import "simplebar/src/simplebar.css";
