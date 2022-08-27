@@ -1,7 +1,9 @@
 import { Grid, Link, Stack, Theme, Typography, useMediaQuery } from "@mui/material";
 import config from "config";
+import { useTranslation } from "react-i18next";
 
 const Footer = () => {
+  const { t } = useTranslation();
   const matchDownSM = useMediaQuery<Theme>((theme) => theme.breakpoints.down("sm"));
 
   return (
@@ -26,7 +28,7 @@ const Footer = () => {
         </Typography>
 
         <Typography variant="subtitle2" color="text.primary" component="span">
-          Never Give Up
+          {t("never_give_up")}
         </Typography>
       </Stack>
     </Grid>

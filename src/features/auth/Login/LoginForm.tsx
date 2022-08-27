@@ -17,6 +17,7 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 import { Formik, FormikHelpers } from "formik";
 import * as Yup from "yup";
+import { useTranslation } from "react-i18next";
 
 import AnimateButton from "components/@extended/AnimateButton";
 import { ILocationState, IUser, Nilable } from "app/types";
@@ -39,6 +40,7 @@ const LoginForm = () => {
   const locationState = location.state as ILocationState;
   const [login] = useLoginMutation();
   const dispatch = useAppDispatch();
+  const { t } = useTranslation();
   const redirectOnSuccessUrl = locationState?.from?.pathname || "/dashboard";
 
   const [showPassword, setShowPassword] = useState(false);
@@ -58,8 +60,8 @@ const LoginForm = () => {
   };
 
   const validationSchema = Yup.object().shape({
-    email: Yup.string().email("Must be a valid email").max(255).required("Email is required"),
-    password: Yup.string().max(255).required("Password is required"),
+    email: Yup.string().email(t("validation.valid_email")).max(255).required(t("validation.email_required")),
+    password: Yup.string().max(255).required(t("validation.password_required")),
   });
 
   const onSubmit: any = async (values: LoginFormDataTypes, { ...rest }: FormikHelpers<LoginFormDataTypes>) => {
@@ -70,11 +72,11 @@ const LoginForm = () => {
     } catch (err: any) {
       console.log(`🚀 - file: Login.tsx - line 37 - err`, err);
       if (!err?.status) {
-        rest.setErrors({ general: "No server response" });
+        rest.setErrors({ general: t("errors.no_server_response") });
       } else if (err.status === 401) {
-        rest.setErrors({ general: "Your email or password is wrong!" });
+        rest.setErrors({ general: t("errors.email_or_password_is_wrong") });
       } else {
-        rest.setErrors({ general: "Server Error, Please try again later" });
+        rest.setErrors({ general: t("errors.server_error") });
       }
     }
   };
@@ -84,7 +86,6 @@ const LoginForm = () => {
         {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
           <>
             {isSubmitting && <Loader />}
-
             <form noValidate onSubmit={handleSubmit}>
               <Grid container spacing={2}>
                 {errors.general && (
@@ -98,7 +99,7 @@ const LoginForm = () => {
                 {/*  email */}
                 <Grid item xs={12}>
                   <Stack spacing={1}>
-                    <InputLabel htmlFor="email">Email Address</InputLabel>
+                    <InputLabel htmlFor="email">{t("inputs.labels.email")}</InputLabel>
                     <OutlinedInput
                       id="email"
                       type="email"
@@ -107,7 +108,7 @@ const LoginForm = () => {
                       onBlur={handleBlur}
                       onChange={handleChange}
                       disabled={isSubmitting}
-                      placeholder="Enter email address"
+                      placeholder={t("inputs.placeholders.enter_email_address")}
                       fullWidth
                       error={Boolean(touched.email && errors.email)}
                     />
@@ -121,7 +122,7 @@ const LoginForm = () => {
                 {/* password */}
                 <Grid item xs={12}>
                   <Stack spacing={1}>
-                    <InputLabel htmlFor="password">Password</InputLabel>
+                    <InputLabel htmlFor="password">{t("inputs.labels.password")}</InputLabel>
                     <OutlinedInput
                       fullWidth
                       error={Boolean(touched.password && errors.password)}
@@ -135,7 +136,7 @@ const LoginForm = () => {
                       endAdornment={
                         <InputAdornment position="end">
                           <IconButton
-                            aria-label="toggle password visibility"
+                            aria-label={t("toggle_password_visibility")}
                             onClick={handleClickShowPassword}
                             onMouseDown={handleMouseDownPassword}
                             edge="end"
@@ -145,7 +146,7 @@ const LoginForm = () => {
                           </IconButton>
                         </InputAdornment>
                       }
-                      placeholder="Enter password"
+                      placeholder={t("inputs.placeholders.enter_password")}
                     />
                     {touched.password && errors.password && (
                       <FormHelperText error id="standard-weight-helper-text-password">
@@ -169,7 +170,8 @@ const LoginForm = () => {
                     }
                     label={
                       <Typography variant="h6">
-                        Keep me sign in <span style={{ color: "red" }}>(not working)</span>
+                        {t("inputs.placeholders.keep_me_sign_in")}{" "}
+                        <span style={{ color: "red" }}>({t("not_working")})</span>
                       </Typography>
                     }
                   />
@@ -186,7 +188,7 @@ const LoginForm = () => {
                       variant="contained"
                       color="primary"
                     >
-                      Login
+                      {t("login")}
                     </Button>
                   </AnimateButton>
                 </Grid>
