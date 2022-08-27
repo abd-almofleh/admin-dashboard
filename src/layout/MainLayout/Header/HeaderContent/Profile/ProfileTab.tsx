@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { useTheme } from "@mui/material/styles";
 import { List, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
 import { EditOutlined, ProfileOutlined, LogoutOutlined, UserOutlined, WalletOutlined } from "@ant-design/icons";
+import { useTranslation } from "react-i18next";
 
 interface ProfileTabProps {
   handleLogout?: React.MouseEventHandler<HTMLDivElement | HTMLButtonElement>;
@@ -10,6 +11,7 @@ interface ProfileTabProps {
 
 const ProfileTab = ({ handleLogout }: ProfileTabProps) => {
   const theme = useTheme();
+  const { t } = useTranslation();
 
   const [selectedIndex, setSelectedIndex] = useState<number>(0);
   const handleListItemClick = (event: any, index: number) => {
@@ -47,7 +49,7 @@ const ProfileTab = ({ handleLogout }: ProfileTabProps) => {
         <ListItemIcon>
           <LogoutOutlined />
         </ListItemIcon>
-        <ListItemText primary="Logout" />
+        <ListItemText primary={t("logout")} />
       </ListItemButton>
     </List>
   );

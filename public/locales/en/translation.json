@@ -1,0 +1,28 @@
+{
+  "errors": {
+    "email_or_password_is_wrong": "Your email or password is wrong!",
+    "no_server_response": "No server response",
+    "server_error": "Server Error, Please try again later"
+  },
+  "inputs": {
+    "labels": {
+      "email": "Email Address",
+      "password": "Password"
+    },
+    "placeholders": {
+      "enter_email_address": "Enter email address...",
+      "enter_password": "Enter password",
+      "keep_me_sign_in": "Keep me sign in"
+    }
+  },
+  "login": "Login",
+  "logout": "Logout",
+  "never_give_up": "Never Give Up",
+  "not_working": "not working",
+  "toggle_password_visibility": "Toggle Password Visibility",
+  "validation": {
+    "email_required": "Email is required",
+    "password_required": "Password is required",
+    "valid_email": "Must be a valid email"
+  }
+}

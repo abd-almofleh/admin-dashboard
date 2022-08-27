@@ -1,5 +1,6 @@
 import { Avatar, CardContent, Grid, IconButton, Stack, Tooltip, Typography } from "@mui/material";
 import { LogoutOutlined } from "@ant-design/icons";
+import { useTranslation } from "react-i18next";
 
 interface IPopperHeaderProps {
   user_image: string;
@@ -8,6 +9,7 @@ interface IPopperHeaderProps {
   handleLogout: React.MouseEventHandler<HTMLButtonElement>;
 }
 const PopperHeader = ({ user_image, handleLogout, userFullName, userRole, ...props }: IPopperHeaderProps) => {
+  const { t } = useTranslation();
   return (
     <CardContent sx={{ px: 2.5, pt: 3 }}>
       <Grid container justifyContent="space-between" alignItems="center">
@@ -23,7 +25,7 @@ const PopperHeader = ({ user_image, handleLogout, userFullName, userRole, ...pro
           </Stack>
         </Grid>
         <Grid item>
-          <Tooltip title="Logout" arrow>
+          <Tooltip title={t("logout")} arrow>
             <IconButton size="large" color="secondary" onClick={handleLogout}>
               <LogoutOutlined />
             </IconButton>
