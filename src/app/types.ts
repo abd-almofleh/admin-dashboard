@@ -26,17 +26,13 @@ export interface ILocationState {
   from: Location;
 }
 
-export interface ISideBarItem {
+export interface ISideBarItemTemplate {
   id: string;
   title: string;
-  type: "item" | "collapse";
-  url: string;
   icon: any;
-  target?: boolean;
-  breadcrumbs?: boolean;
-  external?: boolean;
   disabled?: boolean;
   level?: number;
+  type: "item" | "collapse";
   chip?: {
     color?: "primary" | "secondary" | "error" | "info" | "success" | "warning" | "default";
     variant?: "filled" | "outlined";
@@ -45,9 +41,23 @@ export interface ISideBarItem {
     avatar?: React.ReactElement<any, string | React.JSXElementConstructor<any>>;
   };
 }
+
+export interface ISideBarItem extends ISideBarItemTemplate {
+  url: string;
+  target?: boolean;
+  breadcrumbs?: boolean;
+  external?: boolean;
+  type: "item";
+}
+
+export interface ISideBarCollapsibleItem extends ISideBarItemTemplate {
+  children: ISideBarItem[];
+  type: "collapse";
+}
+
 export interface ISideBarItemsGroup {
   id: string;
   title: string;
   type: "group";
-  children: (ISideBarItem | ISideBarItemsGroup)[];
+  children: (ISideBarItem | ISideBarCollapsibleItem)[];
 }
