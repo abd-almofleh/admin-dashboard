@@ -11,7 +11,7 @@ const dashboard: ISideBarItemsGroup = {
   type: "group",
   children: [
     {
-      id: "dashboard",
+      id: "dashboard1",
       title: "Dashboard",
       type: "item",
       url: "/dashboard",
