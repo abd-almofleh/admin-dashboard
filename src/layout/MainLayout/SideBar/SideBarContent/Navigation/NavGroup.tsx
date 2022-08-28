@@ -5,14 +5,15 @@ import { Box, List, Typography } from "@mui/material";
 import NavItem from "./NavItem";
 import { useAppSelector } from "app/hooks";
 import { SelectSideBarStatus } from "../../SideBarSlice";
-import { ISideBarItemsGroup, ISideBarItemTemplate } from "app/types";
+import { ISideBarItemsGroup } from "app/types";
 import NavCollapsibleItem from "./NavCollapsibleItemGroup";
 
 interface NavGroupProps {
   item: ISideBarItemsGroup;
 }
 
-const NavGroup: FC<NavGroupProps> = ({ item }) => {
+const NavGroup: FC<NavGroupProps> = (props) => {
+  const { item } = props;
   const sideBarOpen = useAppSelector(SelectSideBarStatus);
 
   const navCollapse = item.children.map((sideBarItem) => {
@@ -35,7 +36,6 @@ const NavGroup: FC<NavGroupProps> = ({ item }) => {
             <Typography variant="subtitle2" color="textSecondary">
               {item.title}
             </Typography>
-            {/* only available in paid version */}
           </Box>
         )
       }

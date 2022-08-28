@@ -1,7 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 import { useTheme } from "@mui/material/styles";
-import { Collapse, List, ListItemButton, ListItemIcon, ListItemText, Typography, Chip, Avatar } from "@mui/material";
+import {
+  Collapse,
+  List,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  Typography,
+  Chip,
+  Avatar,
+  Popper,
+  Fade,
+  Paper,
+} from "@mui/material";
 import { ExpandLess, ExpandMore } from "@mui/icons-material";
 
 import { SelectSideBar } from "../../SideBarSlice";
@@ -14,33 +26,44 @@ interface INavCollapsibleItemProps {
   level?: number;
 }
 
-const NavCollapsibleItem: React.FC<INavCollapsibleItemProps> = ({ item, level = 1, ...props }) => {
-  const [open, setOpen] = useState<boolean>(true);
-  const sideBar = useAppSelector(SelectSideBar);
-  const { sideBarOpen, openItem } = sideBar;
+const NavCollapsibleItem: React.FC<INavCollapsibleItemProps> = (props) => {
+  const { item, level = 1 } = props;
 
-  useEffect(() => {
-    if (!sideBarOpen) setOpen(false);
-  }, [sideBarOpen]);
-
+  const { sideBarOpen, openItem } = useAppSelector(SelectSideBar);
   const theme = useTheme();
 
-  const handleClick = () => {
-    setOpen(!open);
-  };
+  const [collapsedListOpen, setCollapsedListOpen] = useState<boolean>(false);
+  const [popperOpen, setPopperOpen] = useState<boolean>(false);
+  const [popperAnchorEl, setPopperAnchorEl] = useState<null | HTMLElement>(null);
+
   const textColor = "text.primary";
   const iconSelectedColor = "primary.main";
   const Icon = item.icon;
   const itemIcon = item.icon ? <Icon style={{ fontSize: sideBarOpen ? "1rem" : "1.25rem" }} /> : false;
-  const isSelected = openItem.findIndex((id) => id === item.id) > -1;
+
+  const handleClick = (): void => {
+    sideBarOpen && setCollapsedListOpen(!collapsedListOpen);
+  };
+  const handleMouseEnter = (): void => {
+    setPopperOpen(true);
+  };
+  const handleMouseLeave = (): void => {
+    setPopperOpen(false);
+  };
 
   const collapseItems = item.children.map((sideBarItem) => {
     return <NavItem key={sideBarItem.id} item={sideBarItem} level={sideBarItem.level ? sideBarItem.level + 1 : 2} />;
+  });
+  const popperItems = item.children.map((sideBarItem) => {
+    return <NavItem popperItem key={sideBarItem.id} item={sideBarItem} />;
   });
 
   return (
     <>
       <ListItemButton
+        ref={setPopperAnchorEl}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
         disabled={item.disabled}
         onClick={handleClick}
         sx={{
@@ -63,7 +86,7 @@ const NavCollapsibleItem: React.FC<INavCollapsibleItemProps> = ({ item, level = 
           }),
           ...(!sideBarOpen && {
             "&:hover": {
-              bgcolor: "transparent",
+              bgcolor: "secondary.lighter",
             },
             "&.Mui-selected": {
               "&:hover": {
@@ -78,24 +101,14 @@ const NavCollapsibleItem: React.FC<INavCollapsibleItemProps> = ({ item, level = 
           <ListItemIcon
             sx={{
               minWidth: 28,
-              color: open ? iconSelectedColor : textColor,
+              color: collapsedListOpen ? iconSelectedColor : textColor,
               ...(!sideBarOpen && {
                 borderRadius: 1.5,
                 width: 36,
                 height: 36,
                 alignItems: "center",
                 justifyContent: "center",
-                "&:hover": {
-                  bgcolor: "secondary.lighter",
-                },
               }),
-              ...(!sideBarOpen &&
-                isSelected && {
-                  bgcolor: "primary.lighter",
-                  "&:hover": {
-                    bgcolor: "primary.lighter",
-                  },
-                }),
             }}
           >
             {itemIcon}
@@ -104,7 +117,7 @@ const NavCollapsibleItem: React.FC<INavCollapsibleItemProps> = ({ item, level = 
         {(sideBarOpen || (!sideBarOpen && level !== 1)) && (
           <ListItemText
             primary={
-              <Typography variant="h6" sx={{ color: open ? iconSelectedColor : textColor }}>
+              <Typography variant="h6" sx={{ color: collapsedListOpen ? iconSelectedColor : textColor }}>
                 {item.title}
               </Typography>
             }
@@ -119,12 +132,55 @@ const NavCollapsibleItem: React.FC<INavCollapsibleItemProps> = ({ item, level = 
             avatar={item.chip.avatar && <Avatar>{item.chip.avatar}</Avatar>}
           />
         )}
+        {!sideBarOpen && (
+          <Popper
+            open={popperOpen}
+            anchorEl={popperAnchorEl}
+            placement="right"
+            disablePortal={false}
+            transition
+            modifiers={[
+              {
+                name: "flip",
+                enabled: true,
+                options: {
+                  altBoundary: true,
+                  rootBoundary: "document",
+                  padding: 8,
+                },
+              },
+              {
+                name: "preventOverflow",
+                enabled: true,
+                options: {
+                  altAxis: true,
+                  altBoundary: false,
+                  tether: false,
+                  rootBoundary: "document",
+                  padding: 8,
+                },
+              },
+            ]}
+          >
+            {({ TransitionProps }) => (
+              <Fade {...TransitionProps} timeout={350}>
+                <Paper>
+                  <List>{popperItems}</List>
+                </Paper>
+              </Fade>
+            )}
+          </Popper>
+        )}
 
         {(sideBarOpen || (!sideBarOpen && level !== 1)) &&
-          (open ? <ExpandLess sx={{ color: iconSelectedColor }} /> : <ExpandMore sx={{ color: textColor }} />)}
+          (collapsedListOpen ? (
+            <ExpandLess sx={{ color: iconSelectedColor }} />
+          ) : (
+            <ExpandMore sx={{ color: textColor }} />
+          ))}
       </ListItemButton>
       {(sideBarOpen || (!sideBarOpen && level !== 1)) && (
-        <Collapse in={open} timeout="auto" unmountOnExit>
+        <Collapse in={collapsedListOpen} timeout="auto" unmountOnExit>
           <List sx={{ mb: sideBarOpen ? 1.5 : 0, py: 0, zIndex: 0 }}>{collapseItems}</List>
         </Collapse>
       )}

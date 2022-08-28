@@ -11,6 +11,7 @@ import { ISideBarItem } from "app/types";
 interface NavItemProps {
   item: ISideBarItem;
   level?: number;
+  popperItem?: true;
 }
 interface listItemPropsTypes {
   component: React.ForwardRefExoticComponent<React.RefAttributes<HTMLAnchorElement>> | string;
@@ -18,7 +19,8 @@ interface listItemPropsTypes {
   target?: string;
 }
 
-const NavItem: FC<NavItemProps> = ({ item, level = 1 }) => {
+const NavItem: FC<NavItemProps> = (props) => {
+  const { item, level = 1, popperItem = false } = props;
   const theme = useTheme();
   const dispatch = useAppDispatch();
   const sideBar = useAppSelector(SelectSideBar);
@@ -72,7 +74,7 @@ const NavItem: FC<NavItemProps> = ({ item, level = 1 }) => {
         zIndex: 1201,
         pl: sideBarOpen ? `${level * 28}px` : 1.5,
         py: !sideBarOpen && level === 1 ? 1.25 : 1,
-        ...(sideBarOpen && {
+        ...((sideBarOpen || popperItem) && {
           "&:hover": {
             bgcolor: "primary.lighter",
           },
@@ -86,17 +88,19 @@ const NavItem: FC<NavItemProps> = ({ item, level = 1 }) => {
             },
           },
         }),
-        ...(!sideBarOpen && {
-          "&:hover": {
-            bgcolor: "transparent",
-          },
-          "&.Mui-selected": {
+        ...(!sideBarOpen &&
+          !popperItem && {
             "&:hover": {
-              bgcolor: "transparent",
+              bgcolor: "secondary.lighter",
             },
-            bgcolor: "transparent",
-          },
-        }),
+            "&.Mui-selected": {
+              "&:hover": {
+                bgcolor: "secondary.lighter",
+              },
+              bgcolor: "primary.lighter",
+              borderRight: `2px solid ${theme.palette.primary.main}`,
+            },
+          }),
       }}
     >
       {itemIcon && (
@@ -114,19 +118,12 @@ const NavItem: FC<NavItemProps> = ({ item, level = 1 }) => {
                 bgcolor: "secondary.lighter",
               },
             }),
-            ...(!sideBarOpen &&
-              isSelected && {
-                bgcolor: "primary.lighter",
-                "&:hover": {
-                  bgcolor: "primary.lighter",
-                },
-              }),
           }}
         >
           {itemIcon}
         </ListItemIcon>
       )}
-      {(sideBarOpen || (!sideBarOpen && level !== 1)) && (
+      {(sideBarOpen || (!sideBarOpen && level !== 1) || popperItem) && (
         <ListItemText
           primary={
             <Typography variant="h6" sx={{ color: isSelected ? iconSelectedColor : textColor }}>
@@ -135,7 +132,7 @@ const NavItem: FC<NavItemProps> = ({ item, level = 1 }) => {
           }
         />
       )}
-      {(sideBarOpen || (!sideBarOpen && level !== 1)) && item.chip && (
+      {(sideBarOpen || (!sideBarOpen && level !== 1) || popperItem) && item.chip && (
         <Chip
           color={item.chip.color}
           variant={item.chip.variant}
