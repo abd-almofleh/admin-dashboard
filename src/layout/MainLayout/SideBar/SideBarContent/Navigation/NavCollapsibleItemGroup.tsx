@@ -29,7 +29,7 @@ interface INavCollapsibleItemProps {
 const NavCollapsibleItem: React.FC<INavCollapsibleItemProps> = (props) => {
   const { item, level = 1 } = props;
 
-  const { sideBarOpen, openItem } = useAppSelector(SelectSideBar);
+  const { sideBarOpen } = useAppSelector(SelectSideBar);
   const theme = useTheme();
 
   const [collapsedListOpen, setCollapsedListOpen] = useState<boolean>(false);
