@@ -6,31 +6,24 @@ import NavItem from "./NavItem";
 import { useAppSelector } from "app/hooks";
 import { SelectSideBarStatus } from "../../SideBarSlice";
 import { ISideBarItemsGroup } from "app/types";
+import NavCollapsibleItem from "./NavCollapsibleItemGroup";
 
 interface NavGroupProps {
   item: ISideBarItemsGroup;
 }
 
-const NavGroup: FC<NavGroupProps> = ({ item }) => {
+const NavGroup: FC<NavGroupProps> = (props) => {
+  const { item } = props;
   const sideBarOpen = useAppSelector(SelectSideBarStatus);
 
-  // TODO:fix Collapse
   const navCollapse = item.children.map((sideBarItem) => {
     switch (sideBarItem.type) {
       case "collapse":
-        return (
-          <Typography key={sideBarItem.id} variant="caption" color="error" sx={{ p: 2.5 }}>
-            collapse - only available in paid version
-          </Typography>
-        );
+        return <NavCollapsibleItem key={sideBarItem.id} item={sideBarItem} level={sideBarItem.level} />;
       case "item":
         return <NavItem key={sideBarItem.id} item={sideBarItem} level={sideBarItem.level} />;
       default:
-        return (
-          <Typography key={sideBarItem.id} variant="h6" color="error" align="center">
-            Fix - Group Collapse or Items [NavGroup.tsx]
-          </Typography>
-        );
+        return null;
     }
   });
 
@@ -43,7 +36,6 @@ const NavGroup: FC<NavGroupProps> = ({ item }) => {
             <Typography variant="subtitle2" color="textSecondary">
               {item.title}
             </Typography>
-            {/* only available in paid version */}
           </Box>
         )
       }

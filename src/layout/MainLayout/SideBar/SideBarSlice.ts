@@ -36,6 +36,7 @@ const SideBar = createSlice({
     },
   },
 });
+
 export const SelectSideBarStatus = (state: RootState): boolean => state.sideBar.sideBarOpen;
 export const SelectSideBar = (state: RootState): ISideBarData => state.sideBar;
 
